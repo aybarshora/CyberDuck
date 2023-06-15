@@ -17,9 +17,9 @@ contract CyberDuckStaking {
     event Claim(address sender, uint amount);
     event Compound(address sender, uint amount);
 
-    mapping(address => uint) public balanceOf;
-    mapping(address => uint) public lastUpdated;
-    mapping(address => uint) public claimed;
+    mapping(address => uint) private balanceOf;
+    mapping(address => uint) private lastUpdated;
+    mapping(address => uint) private claimed;
 
     constructor(IERC20 token_) {
         token = token_;
@@ -86,5 +86,17 @@ contract CyberDuckStaking {
         stakeBalance -= amount_;
         token.safeTransfer(msg.sender, amount_);
         emit Withdraw(msg.sender, amount_);
+    }
+
+    function getBalanceOf(address _address) external view returns (uint) {
+        return balanceOf[_address];
+    }
+
+    function getLastUpdated(address _address) external view returns (uint) {
+        return lastUpdated[_address];
+    }
+
+    function getClaimed(address _address) external view returns (uint) {
+        return claimed[_address];
     }
 }
