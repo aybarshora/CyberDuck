@@ -30,6 +30,7 @@ contract CyberDuckCoin is
     address private _marketingAddress;
 
     event SentToStaking(uint256 amount);
+    event SentToMarketing(uint256 amount);
     event SetStaking(address newStaking);
     event SetMarketing(address newMarketing);
 
@@ -194,6 +195,9 @@ contract CyberDuckCoin is
             _balances[_marketingAddress] = _balances[_marketingAddress].add(
                 amountToMarketing
             );
+
+            emit SentToStaking(amountToStaking);
+            emit SentToMarketing(amountToMarketing);
         }
 
         _balances[recipient] = _balances[recipient].add(amount);
